@@ -15,10 +15,10 @@ int is_full() {
 
 }
 
-void push(element item) {
+int push(element item) {
 	if (is_full()) {
 		fprintf(stderr, "스택 포화 에러\n");
-		return 0;
+		return 0;//스택 포화 에러 발생시 바로 윗부분의 내용만 출력될수 있게 했습니다. 
 
 	}
 	else {
@@ -32,37 +32,42 @@ void push(element item) {
 element pop() {
 	if (is_empty()) {
 		fprintf(stderr, "스택 공백 에러\n");
-
+		return 0;//스택 공백 에러 발생시 바로 윗부분의 내용만 출력될수 있게 했습니다. 
 	}
 	else return stack[top--];
 }
 
-int random() {
 
-	int rand_num = rand() % 100 + 1;
-
-	return rand_num;
-
-}
 
 
 int main() {
-
+	srand(time(NULL));
 	for (int i = 0; i < 30; i++) {
-		printf("[ %d ]", i + 1);
+		
 
-		int temp_ran = random();
+		int temp_ran = rand() % 100 + 1;
+
 		if (temp_ran % 2 == 1) {
 			int p = pop();
-
-			printf("pop %d\n", p);
-
+			if (p == 0) {
+				printf("\n");
+			}
+			else {
+				printf("[ %d ]", i + 1);
+				printf("pop %d\n", p);
+			}
 		}
 		else {
 
-			push(temp_ran);
-			printf("push %d\n", temp_ran);
-
+			int p=push(temp_ran);
+			if (p == 0) {
+				printf("\n");
+			
+			}
+			else {
+				printf("[ %d ]", i + 1);
+				printf("push %d\n", temp_ran);
+			}
 
 		}
 
